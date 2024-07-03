@@ -1,0 +1,36 @@
+<!--app-spinner [titulo]="tituloSpinner"></app-spinner-->
+<h1 mat-dialog-title> {{data.titulo}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formModal">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre Perfil" formControlName="nombrePerfil">
+            <mat-error *ngIf="formModal.get('nombrePerfil')!.invalid">
+                {{ errorFormulario.ObtieneMensajeError(formModal, 'nombrePerfil') }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput placeholder="Descripción" formControlName="descripcionPerfil"></textarea>
+            <mat-error *ngIf="formModal.get('descripcionPerfil')!.invalid">
+                {{ errorFormulario.ObtieneMensajeError(formModal, 'descripcionPerfil') }}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field  appearance="outline">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+               
+                <mat-option *ngFor="let estado of Estado" [value]="estado.id">
+                  {{estado.nombre}}
+                </mat-option>
+              </mat-select>
+            <mat-error *ngIf="formModal.get('estado')!.invalid">
+                {{ errorFormulario.ObtieneMensajeError(formModal, 'estado') }}
+            </mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+</div>
