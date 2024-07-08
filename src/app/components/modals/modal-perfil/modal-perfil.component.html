@@ -16,12 +16,12 @@
                 {{ errorFormulario.ObtieneMensajeError(formModal, 'descripcionPerfil') }}
             </mat-error>
         </mat-form-field>
-        <mat-form-field  appearance="outline">
+        <mat-form-field *ngIf="this.data.id > 0"  appearance="outline">
             <mat-label>Estado</mat-label>
             <mat-select formControlName="estado">
                
-                <mat-option *ngFor="let estado of Estado" [value]="estado.id">
-                  {{estado.nombre}}
+                <mat-option *ngFor="let estado of estado" [value]="estado.id">
+                  {{estado.nombreSubcatalogo}}
                 </mat-option>
               </mat-select>
             <mat-error *ngIf="formModal.get('estado')!.invalid">

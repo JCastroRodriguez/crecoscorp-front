@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
 import { PerfilService } from 'src/app/services/perfil/perfil.service';
 import { SeguridadService } from 'src/app/services/seguridad/seguridad.service';
 import { Alertas } from 'src/utilitarios/alertas';
@@ -24,15 +26,17 @@ export class ModalPerfilComponent implements OnInit {
   alertas = new Alertas();
 
   formModal: FormGroup;
-  Estado = [{ id: 1, nombre: 'ACTIVO' }, { id: 2, nombre: 'INACTIVO' }];
+  estado : any = [];
 
   constructor(
     private seguridadService: SeguridadService,
     private perfilService: PerfilService,
+    private catalogoService: CatalogoService,
     private datePipe: DatePipe,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<ModalPerfilComponent>
+    public dialogRef: MatDialogRef<ModalPerfilComponent>,
+    private SpinnerService: NgxSpinnerService,
   ) {
     dialogRef.disableClose = true;
 
@@ -43,7 +47,23 @@ export class ModalPerfilComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    console.log(this.data.datos)
+    this.estado = [];
+    await this.SpinnerService.show();
+    await this.catalogoService.listarSubcatalogosByIdCatalogo(1).toPromise().then(async (respuesta: any) => {
+      if (respuesta.datos != null) {
+        this.estado = respuesta.datos;
+        console.log(this.estado)
+      } else {
+        this.alertas.ToastExito('No se encontraron registros');
+      }
+      await this.SpinnerService.hide();
+    }).catch(async (error: Error) => {
+      await this.SpinnerService.hide();
+    }
+    );
+
     this.formModal.reset();
     if (this.data.id > 0) {
       this.formModal.get('nombrePerfil')?.setValue(this.data.datos.nombrePerfil);
@@ -63,13 +83,13 @@ export class ModalPerfilComponent implements OnInit {
       this.alertas.ToastError('Por favor ingresar los datos obligatorios marcados en rojo.');
       return;
     }
-    //await this.SpinnerService.show();
+    await this.SpinnerService.show();
     let json = {};
     if (this.data.id === 0) {
       json = {
         nombrePerfil: this.formModal.get('nombrePerfil')?.value,
         descripcionPerfil: this.formModal.get('descripcionPerfil')?.value,
-        estado: 1,
+        estado: 32,
         status: 3,
         codigoUsuario: this.usuario,
         fecha: this.datePipe.transform(new Date(), "yyyy-MM-dd HH:mm:ss")
@@ -80,9 +100,9 @@ export class ModalPerfilComponent implements OnInit {
           this.dialogRef.close("creado");
           this.formModal.reset();
         }
-        //await this.SpinnerService.hide();
+        await this.SpinnerService.hide();
       }).catch(async (error: Error) => {
-        //await this.SpinnerService.hide();
+        await this.SpinnerService.hide();
       })
 
     } else {

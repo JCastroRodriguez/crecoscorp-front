@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { PerfilService } from 'src/app/services/perfil/perfil.service';
 import { SeguridadService } from 'src/app/services/seguridad/seguridad.service';
 import { Alertas } from 'src/utilitarios/alertas';
@@ -16,23 +17,25 @@ export class PerfilComponent implements OnInit {
 
   //DATOS DEL USUARIO
   usuario = this.seguridadService.datosUsuario.id;
-
+  tituloSpinner = "Cargando ..."
   // / DEFINIR INSTANCIA DE LA CLASE ERRORFORMULARIO.
   alertas = new Alertas();
-  listaPerfiles : any = [];
+  listaPerfiles: any = [];
   displayedColumns: string[] = ['PERFIL', 'DESCRIPCION', 'ESTADO', 'ACCIONES'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  
+
   constructor(
     private perfilService: PerfilService,
     public dialog: MatDialog,
     private seguridadService: SeguridadService,
+    private SpinnerService: NgxSpinnerService,
   ) { }
 
   async ngOnInit(): Promise<void> {
     this.listaPerfiles = [];
+    await this.SpinnerService.show();
     await this.perfilService.perfilesTodos().toPromise().then(async (respuesta: any) => {
-      if (respuesta.datos != null ) {
+      if (respuesta.datos != null) {
         this.listaPerfiles = respuesta.datos;
         console.log(this.listaPerfiles)
         this.listaPerfiles = new MatTableDataSource<any>(respuesta.datos);
@@ -40,9 +43,9 @@ export class PerfilComponent implements OnInit {
       } else {
         this.alertas.ToastExito('No se encontraron registros');
       }
-      //await this.SpinnerService.hide();
+      await this.SpinnerService.hide();
     }).catch(async (error: Error) => {
-      //await this.SpinnerService.hide();
+      await this.SpinnerService.hide();
     }
     );
   }
@@ -52,7 +55,7 @@ export class PerfilComponent implements OnInit {
       width: '500px',
       data: {
         titulo: "Nuevo Perfil",
-        datos: { estado: 2 },
+        datos: { estado: 32 },
         id: 0
       }
     });
@@ -66,6 +69,7 @@ export class PerfilComponent implements OnInit {
   }
 
   editar(data: any) {
+    console.log(data)
     const dialogRef = this.dialog.open(ModalPerfilComponent, {
       width: '500px',
       data: {
@@ -82,6 +86,5 @@ export class PerfilComponent implements OnInit {
       }
     });
   }
-  
 
 }

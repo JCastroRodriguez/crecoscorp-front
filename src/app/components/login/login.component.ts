@@ -5,6 +5,7 @@ import { SeguridadService } from 'src/app/services/seguridad/seguridad.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { Alertas } from 'src/utilitarios/alertas';
 import { ErrorFormulario } from 'src/utilitarios/error-formularios';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   // / DEFINIR INSTANCIA DE LA CLASE ERRORFORMULARIO.
   errorFormulario = new ErrorFormulario();
-
+  tituloSpinner = "Cargando ..."
   // / DEFINIR INSTANCIA DE LA CLASE ERRORFORMULARIO.
   alertas = new Alertas();
 
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private usuarioService: UsuarioService,
-    private seguridadService: SeguridadService
+    private seguridadService: SeguridadService,
+    private SpinnerService: NgxSpinnerService,
   ) {
     this.formLogin = this.fb.group({
       nombreUsuario: new FormControl('', [Validators.required]),
@@ -35,6 +37,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('DATOS_USUARIO')) {
+      //await this.SpinnerService.show();
+      this.router.navigate(['dashboard/inicio']);
+    }else{
+      this.router.navigate(['/']);
+    }
   }
 
   async Acceder() {
@@ -45,7 +53,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    //await this.SpinnerService.show();
+    await this.SpinnerService.show();
     let json = {
       nombreUsuario: this.formLogin.get('nombreUsuario')?.value,
       clave: this.formLogin.get('clave')?.value
@@ -63,9 +71,9 @@ export class LoginComponent implements OnInit {
       } else {
         this.alertas.ToastError('Credenciales inválidas');
       }
-      //await this.SpinnerService.hide();
+      await this.SpinnerService.hide();
     }).catch(async (error: Error) => {
-      //await this.SpinnerService.hide();
+      await this.SpinnerService.hide();
     }
     );
   }

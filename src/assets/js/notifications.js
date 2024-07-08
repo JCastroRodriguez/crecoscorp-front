@@ -153,7 +153,7 @@ $(document).ready(function() {
             //Custom Image
             $('#sa-image').click(function() {
                 swal({
-                    title: "Gary Robinson",
+                    title: "Jean Carlos",
                     text: "Commented on your status",
                     imageUrl: "../../img/avatars/avatar.png",
                     confirmButtonColor: "#ea65a2",

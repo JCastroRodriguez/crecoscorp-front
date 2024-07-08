@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -26,7 +28,8 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { ModalPerfilComponent } from './components/modals/modal-perfil/modal-perfil.component';
 import { RegistroSolicitanteComponent } from './components/registro-solicitante/registro-solicitante.component';
 import { ListarSolicitantesComponent } from './components/listar-solicitantes/listar-solicitantes.component';
-import { MatStepperModule } from '@angular/material/stepper';
+import { SpinnerComponent } from './spinner/spinner.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     UsuarioComponent,
     ModalPerfilComponent,
     RegistroSolicitanteComponent,
-    ListarSolicitantesComponent
+    ListarSolicitantesComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -59,10 +63,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatSnackBarModule,
     MatButtonModule,
     MatInputModule,
-    MatStepperModule
+    MatStepperModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  //schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

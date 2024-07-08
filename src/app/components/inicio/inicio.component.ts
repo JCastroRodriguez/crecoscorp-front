@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.refreshScreen();
+  }
+
+  refreshScreen(): void {
+    // Marca la vista para chequeo de cambios
+    this.cdr.detectChanges();
   }
 
 }

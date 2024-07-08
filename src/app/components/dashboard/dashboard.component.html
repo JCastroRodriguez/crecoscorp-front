@@ -1,3 +1,4 @@
+<app-spinner [titulo]="tituloSpinner"></app-spinner>
 <body class="hold-transition sidebar-mini">
     <!-- Preloader -->
     <div id="preloader">
@@ -9,9 +10,9 @@
             <!-- Logo -->
             <a href="index.html" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>O</b>L</span>
+                <span class="logo-mini"><b>C</b>E</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>Out</b>Lay</span>
+                <span class="logo-lg"><b>Crecos</b>Corp</span>
             </a>
             <!-- Header Navbar -->
             <nav class="navbar navbar-fixed-top">
@@ -49,7 +50,8 @@
                                             <div class="media">
                                                 <div class="media-left">
                                                     <a href="#">
-                                                        <img class="media-object img-circle img-48" src="img/avatars/avatar2.png" alt="...">
+                                                        <img *ngIf="this.usuarioLogeado.genero == 33" class="media-object img-circle img-48" src="assets/img/avatar2.png" alt="...">
+                                                        <img *ngIf="this.usuarioLogeado.genero == 32" class="media-object img-circle img-48" src="assets/img/avatar7.png" alt="...">
                                                     </a>
                                                 </div>
                                                 <div class="media-body">
@@ -79,7 +81,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="media-body">
-                                                    <h4 class="media-heading">Gary Robinson<small> <i class="fa fa-clock-o"></i> 8 mins</small></h4>
+                                                    <h4 class="media-heading">Jean Carlos Castro<small> <i class="fa fa-clock-o"></i> 8 mins</small></h4>
                                                     <p>Created new project with John Deo</p>
                                                 </div>
                                             </div>
@@ -147,23 +149,24 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle waves-effect" data-toggle="dropdown">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                                <span class="hidden-xs">Gary Robinson</span>
+                                <span class="hidden-xs">{{this.usuarioLogeado.nombreUsuario}}</span>
                                 <!-- The user image in the navbar-->
-                                <img src="img/avatars/avatar4.png" class="user-image" alt="User Image">
+                                <img *ngIf="this.usuarioLogeado.genero == 33" src="assets/img/avatar4.png" class="user-image" alt="User Image">
+                                <img *ngIf="this.usuarioLogeado.genero == 32" src="assets/img/avatar7.png" class="user-image" alt="User Image">
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                    <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox <span class="label label-danger">3</span></a>
+                                    <a href="#"><i class="fa fa-fw fa-envelope"></i>Notificaciones <span class="label label-danger">3</span></a>
                                 </li>
-                                <li>
+                                <!--li>
                                     <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
-                                </li>
+                                </li-->
                                 <li class="divider"></li>
                                 <li>
-                                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                                    <a (click)="salir()"><i class="fa fa-fw fa-power-off"></i>Salir</a>
                                 </li>
                             </ul>
                         </li>
@@ -192,11 +195,12 @@
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel">
                     <div class="image waves-effect">
-                        <img src="img/avatars/avatar4.png" class="img-circle img-responsive " alt="User Image">
+                        <img *ngIf="this.usuarioLogeado.genero == 33" src="assets/img/avatar4.png" class="img-circle img-responsive " alt="User Image">
+                        <img *ngIf="this.usuarioLogeado.genero == 32" src="assets/img/avatar7.png" class="img-circle img-responsive " alt="User Image">
                     </div>
                     <div class="text-center info">
-                        <strong>Gary Robinson</strong>
-                        <i>UX/ Designer</i>
+                        <strong>{{this.usuarioLogeado.nombreUsuario}}</strong>
+                        <i>{{this.usuarioLogeado.nombrePerfil}}</i>
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
