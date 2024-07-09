@@ -26,7 +26,7 @@ export class ModalPerfilComponent implements OnInit {
   alertas = new Alertas();
 
   formModal: FormGroup;
-  estado : any = [];
+  estado: any = [];
 
   constructor(
     private seguridadService: SeguridadService,

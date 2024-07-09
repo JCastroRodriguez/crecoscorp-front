@@ -10,438 +10,484 @@
                     </h3>
                     <h5>Esta información nos permitirá conocer al cliente con los detalles del credito</h5>
                 </div>
-                <div class="wizard-navigation">
-                    <ul>
-                        <li>
-                            <a href="#solicitante" data-toggle="tab">información del Solicitante</a>
-                        </li>
-                        <li>
-                            <a href="#garante" data-toggle="tab">información del Garante</a>
-                        </li>
-                        <li>
-                            <a href="#credito" data-toggle="tab">Crédito</a>
-                        </li>
-                        <li>
-                            <a href="#detalle" data-toggle="tab">Detalle del Crédito</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="tab-content">
-                    <div class="tab-pane" id="solicitante">
-                        <div class="row">
-                            <!--h4 class="info-text"> Let's start with the basic information</h4-->
-                            <div class="col-sm-2 col-sm-offset-1">
-                                <div class="picture-container">
-                                    <div class="picture">
-                                        <img src="assets/img/customer_avatar.png" class="picture-src"
-                                            id="wizardPicturePreview" title="" alt="User Photo" />
-                                        <input type="file" id="wizard-picture">
+                <mat-stepper [linear]="isLinear" #stepper>
+                    <mat-step [stepControl]="solicitanteFormGroup">
+                        <form [formGroup]="solicitanteFormGroup">
+                            <ng-template matStepLabel>Información del Solicitante</ng-template>
+                            <br>
+                            <br>
+                            <div class="tab-pane">
+                                <div class="row">
+                                    <!--h4 class="info-text"> Let's start with the basic information</h4-->
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <div class="picture-container">
+                                            <div class="picture">
+                                                <img src="assets/img/customer_avatar.png" class="picture-src"
+                                                    id="wizardPicturePreview" title="" alt="User Photo" />
+                                                <!--input type="file" id="wizard-picture"-->
+                                            </div>
+                                            <!--h6>Seleccione imagen</h6-->
+                                        </div>
                                     </div>
-                                    <h6>Choose Picture</h6>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Nombres Completos
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="nombreSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Apellidos Completos
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="apellidoSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Celular
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="celularSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope-o"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Email
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="emailSolicitante" type="email" class="form-control">
-                                    </div>
-                                </div>
-                                <br>
-                                <h4 class="info-text"> Información domiciliaria para cobranza</h4>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-home"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Provincia</label>
-                                        <select name="provinciaSolicitante" class="form-control">
-                                            <option value="">Seleccione una provincia</option>
-                                            <option value="Afghanistan"> Santa Elena </option>
-                                            <option value="Albania"> Guayas </option>
-                                            <option value="Algeria"> Manabi </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Sector barrio
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="sectorSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-home"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Tipo de Indentificación</label>
-                                        <select name="tipoIdenSolicitante" class="form-control">
-                                            <option value="">Seleccione un tipo</option>
-                                            <option value="Afghanistan"> Cédula </option>
-                                            <option value="Albania"> Ruc </option>
-                                            <option value="Algeria"> Pasaporte </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Indentificación
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="identificacionSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Usuario
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="usuarioSolicitante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-key"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Password
-                                        </label>
-                                        <input name="claveSolicitante" type="password" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="garante">
-                        <div class="row">
-                            <!--h4 class="info-text"> Let's start with the basic information</h4-->
-                            <div class="col-sm-2 col-sm-offset-1">
-                                <div class="picture-container">
-                                    <div class="picture">
-                                        <img src="assets/img/customer_avatar.png" class="picture-src"
-                                            id="wizardPicturePreview" title="" alt="User Photo" />
-                                        <input type="file" id="wizard-picture">
-                                    </div>
-                                    <h6>Choose Picture</h6>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user-o"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Nombres Completos
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="nombreGarante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Apellidos Completos
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="apellidoGarante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Celular
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="celularGarante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-envelope-o"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Email
-                                            <small>(required)</small>
-                                        </label>
-                                        <input name="emailGarante" type="email" class="form-control">
-                                    </div>
-                                </div>
-                                <br>
-                                <h4 class="info-text"> Información domiciliaria</h4>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-home"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Provincia</label>
-                                        <select name="provinciaGarante" class="form-control">
-                                            <option value="">Seleccione una provincia</option>
-                                            <option value="Afghanistan"> Santa Elena </option>
-                                            <option value="Albania"> Guayas </option>
-                                            <option value="Algeria"> Manabi </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Sector barrio
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="sectorGarante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-home"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Tipo de Indentificación</label>
-                                        <select name="tipoIdenGarante" class="form-control">
-                                            <option value="">Seleccione un tipo</option>
-                                            <option value="Afghanistan"> Cédula </option>
-                                            <option value="Albania"> Ruc </option>
-                                            <option value="Algeria"> Pasaporte </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-user"></i>
-                                    </span>
-                                    <div class="form-group label-floating">
-                                        <label class="control-label">Indentificación
-                                            <small>(requerido)</small>
-                                        </label>
-                                        <input name="identificacionGarante" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="credito">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Monto Crédito</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <br>
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Forma de Pago</label>
-                                    <select name="country" class="form-control">
-                                        <option value="Afghanistan"> diario </option>
-                                        <option value="Albania"> semanal </option>
-                                        <option value="Algeria"> quincenal </option>
-                                        <option value="Algeria"> mensual </option>
-                                    </select>
-                                </div>
-                            </div>
+                                    <div class="col-sm-4">
 
-                            <div class="col-sm-4">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Interes %</label>
-                                    <input type="text" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="datetimepicker1" class="form-label">Simple Date Picker</label>
-                                    <div class='input-group date'>
-                                        <input type='text' id="datetimepicker1" class="form-control"
-                                            value="06/27/2024" />
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user-o"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Nombres Completos
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="nombreSolicitante" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Apellidos Completos
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="apellidoSolicitante" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Celular
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="celularSolicitante" type="number"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-envelope-o"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Email
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="emailSolicitante" type="email"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <h4 class="info-text"> Información domiciliaria para cobranza</h4>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-home"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Provincia</label>
+                                                <select formControlName="provinciaSolicitante"
+                                                    class="form-control">
+                                                    <option *ngFor="let tipo of listaProvincias"
+                                                        [value]="tipo.id">{{ tipo.nombreSubcatalogo }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Sector barrio
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="sectorSolicitante" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-home"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Tipo de Indentificación</label>
+                                                <select formControlName="tipoIdentificacionSolicitante"
+                                                    class="form-control">
+                                                    <option *ngFor="let tipo of listaTipoIdentificacion"
+                                                        [value]="tipo.id">{{ tipo.nombreSubcatalogo }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Indentificación
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="identificacionSolicitante" type="text"
+                                                    class="form-control" (change)="validateId()" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Usuario
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="usuarioSolicitante" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-key"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Password
+                                                </label>
+                                                <input formControlName="claveSolicitante" type="password"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group label-floating">
-                                    <label class="control-label">Nro Cuotas</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
+                            <div>
+                                <button mat-button [disabled]="this.solicitanteFormGroup.invalid"
+                                    (click)="validarSolicitante()">Siguiente</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="detalle">
-                        <div class="row">
-                            <div class="col-sm-2"></div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="garanteFormGroup">
+                        <form [formGroup]="garanteFormGroup">
+                            <ng-template matStepLabel>Información del Garante</ng-template>
+                            <br>
+                            <br>
+                            <div class="tab-pane">
+                                <div class="row">
+                                    <!--h4 class="info-text"> Let's start with the basic information</h4-->
+                                    <div class="col-sm-2 col-sm-offset-1">
+                                        <div class="picture-container">
+                                            <div class="picture">
+                                                <img src="assets/img/customer_avatar.png" class="picture-src"
+                                                    id="wizardPicturePreview" title="" alt="User Photo" />
+                                                <!--input type="file" id="wizard-picture"-->
+                                            </div>
+                                            <!--h6>Seleccione imagen</h6-->
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user-o"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Nombres Completos
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="nombreGarante" type="text" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Apellidos Completos
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="apellidoGarante" type="text"
+                                                    class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Celular
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="celularGarante" type="text" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-envelope-o"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Email
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="emailGarante" type="email" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <h4 class="info-text"> Información domiciliaria</h4>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-home"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Provincia</label>
+                                                <select formControlName="provinciaGarante" class="form-control">
+                                                    <option value="1"> Santa Elena </option>
+                                                    <option value="2"> Guayas </option>
+                                                    <option value="3"> Manabi </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Sector barrio
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="sectorGarante" type="text" class="form-control"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-home"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Tipo de Indentificación</label>
+                                                <select formControlName="tipoIdentificacionGarante"
+                                                    class="form-control">
+                                                    <option value="1"> Cédula </option>
+                                                    <option value="2"> Ruc </option>
+                                                    <option value="3"> Pasaporte </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </span>
+                                            <div class="form-group label-floating">
+                                                <label class="control-label">Indentificación
+                                                    <small>(requerido)</small>
+                                                </label>
+                                                <input formControlName="identificacionGarante" type="text"
+                                                    class="form-control" (change)="validateId()" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button mat-button matStepperPrevious>Regresar</button>
+                                <button mat-button [disabled]="this.garanteFormGroup.invalid"
+                                    (click)="validarGarante">Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="creditoFormGroup">
+                        <form [formGroup]="creditoFormGroup">
+                            <ng-template matStepLabel>Crédito</ng-template>
+                            <br><br><br><br><br>
+                            <div class="tab-pane">
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Monto Crédito</label>
+                                            <input type="number" formControlName="montoCredito" class="form-control"
+                                                required>
+                                        </div>
+                                        <br>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Forma de Pago</label>
+                                            <select formControlName="formaPago" class="form-control">
+                                                <option value="1"> diario </option>
+                                                <option value="2"> semanal </option>
+                                                <option value="3"> quincenal </option>
+                                                <option value="4"> mensual </option>
+                                            </select>
+                                        </div>
+                                        <!--br>
+                                        <div class="form-group">
+                                            <label class="control-label">Fecha de emisión</label>
+                                            <input type="text" formControlName="fechaCredito" id="date" data-mask="99/99/9999" class="form-control">
+                                            <span class="help-block">dd/mm/yyyy</span>
+                                        </div-->
+                                    </div>
 
-                            <div class="col-sm-8">
-                                <div class="panel">
-                                    <div class="panel-heading panel-heading-divider">Crédito a conceder</div>
-                                    <div class="panel-body">
-                                        <form method="get" class="form-horizontal">
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Monto del credito</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value>
-                                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Interes %</label>
+                                            <input type="number" class="form-control" formControlName="interesCredito"
+                                                required>
+                                        </div>
+                                        <br>
+                                        <div class="form-group label-floating">
+                                            <label class="control-label">Nro Cuotas</label>
+                                            <input type="number" class="form-control" formControlName="cuotasCredito"
+                                                required>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-3">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button mat-button matStepperPrevious>Regresar</button>
+                                <button mat-button [disabled]="this.creditoFormGroup.invalid"
+                                    (click)="validarCredito()">Siguiente</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <form>
+                            <ng-template matStepLabel>Detalle del Crédito</ng-template>
+                            <div>
+                                <div class="tab-pane" id="detalle">
+                                    <div class="row">
+                                        <div class="col-sm-2"></div>
+
+                                        <div class="col-sm-8">
+                                            <div class="panel">
+                                                <div class="panel-heading panel-heading-divider">Crédito a conceder
+                                                </div>
+                                                <div class="panel-body">
+                                                    <form method="get" class="form-horizontal">
+                                                        <div class="row">
+                                                            <label class="col-sm-2 label-on-left">Monto del
+                                                                credito</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group label-floating is-empty">
+                                                                    <label class="control-label"></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="$ {{this.creditoFormGroup.get('montoCredito')?.value}}"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-sm-2 label-on-left">Interes</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group label-floating is-empty">
+                                                                    <label class="control-label"></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{this.interes}}" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-sm-2 label-on-left">Monto Total</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group label-floating is-empty">
+                                                                    <label class="control-label"></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="$ {{this.total}}" disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <label class="col-sm-2 label-on-left">Plazo</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group label-floating is-empty">
+                                                                    <label class="control-label"></label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{this.creditoFormGroup.get('cuotasCredito')?.value}} cuotas"
+                                                                        disabled>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Interes</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Monto Total</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <label class="col-sm-2 label-on-left">Plazo</label>
-                                                <div class="col-sm-10">
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label"></label>
-                                                        <input type="text" class="form-control" value>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        </div>
+
+                                        <div class="col-sm-2"></div>
+
+                                        <div class="col-sm-12">
+                                            <table mat-table [dataSource]="listaCuotas">
+
+                                                <ng-container matColumnDef="CUOTA">
+                                                    <th mat-header-cell *matHeaderCellDef> Nro CUOTA </th>
+                                                    <td mat-cell *matCellDef="let element"> {{element.numeroCuota}}
+                                                    </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="CAPITAL">
+                                                    <th mat-header-cell *matHeaderCellDef> CAPITAL AMORTIZADO</th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        $ {{element.capital}} </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="INTERES">
+                                                    <th mat-header-cell *matHeaderCellDef> INTERES </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        $ {{element.interes}} </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="DIVIDENDO">
+                                                    <th mat-header-cell *matHeaderCellDef> DIVIDENDO </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        $ {{element.dividendo}} </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="SALDO">
+                                                    <th mat-header-cell *matHeaderCellDef> SALDO CAPITAL </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        $ {{element.saldoCapital}} </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="FECHA">
+                                                    <th mat-header-cell *matHeaderCellDef> FECHA PAGO </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        {{element.fechaPago}} </td>
+                                                </ng-container>
+
+                                                <ng-container matColumnDef="ESTADO">
+                                                    <th mat-header-cell *matHeaderCellDef [width]="150"> ESTADO </th>
+                                                    <td mat-cell *matCellDef="let element">
+                                                        <button *ngIf="element.estado == 1" mat-icon-button
+                                                            color="primary">
+                                                            PENDIENTE
+                                                        </button>
+                                                        <!--button *ngIf="element.id !== 1 && element.estado===1" mat-icon-button color="warn" (click)="eliminar(element)">
+                                                                    <mat-icon>delete</mat-icon>
+                                                                </button-->
+                                                    </td>
+                                                </ng-container>
+
+                                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                            </table>
+
+                                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                                                aria-label="Select page of periodic elements">
+                                            </mat-paginator>
+                                        </div>
                                     </div>
                                 </div>
+                                <button mat-button matStepperPrevious>Regresar</button>
+                                <button mat-button (click)="grabar()">Finalizar</button>
                             </div>
+                        </form>
+                    </mat-step>
 
-                            <div class="col-sm-2"></div>
-
-                            <div class="col-sm-12">
-                                <table mat-table>
-
-                                    <ng-container matColumnDef="CUOTA">
-                                        <th mat-header-cell *matHeaderCellDef> Nro CUOTA </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.nombrePerfil}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="CAPITAL">
-                                        <th mat-header-cell *matHeaderCellDef> CAPITAL </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.descripcionPerfil}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="INTERES">
-                                        <th mat-header-cell *matHeaderCellDef> INTERES </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.descripcionEstado}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="DIVIDENDO">
-                                        <th mat-header-cell *matHeaderCellDef> DIVIDENDO </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.descripcionEstado}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="SALDO">
-                                        <th mat-header-cell *matHeaderCellDef> SALDO CAPITAL </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.descripcionEstado}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="FECHA">
-                                        <th mat-header-cell *matHeaderCellDef> FECHA PAGO </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.descripcionEstado}} </td>
-                                    </ng-container>
-
-                                    <ng-container matColumnDef="ESTADO">
-                                        <th mat-header-cell *matHeaderCellDef [width]="150"> ESTADO </th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <button *ngIf="element.id !== 1" mat-icon-button color="primary">
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
-                                            <!--button *ngIf="element.id !== 1 && element.estado===1" mat-icon-button color="warn" (click)="eliminar(element)">
-                                                <mat-icon>delete</mat-icon>
-                                            </button-->
-                                        </td>
-                                    </ng-container>
-
-                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                                </table>
-
-                                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                                    aria-label="Select page of periodic elements">
-                                </mat-paginator>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="wizard-footer">
-                    <div class="pull-right">
-                        <input type='button' class='btn btn-next btn-primary' name='next' value='Siguiente' />
-                        <input type='button' class='btn btn-finish btn-primary' name='finish' value='Finalizar' />
-                    </div>
-                    <div class="pull-left">
-                        <input type='button' class='btn btn-previous btn-primary' name='previous' value='Regresar' />
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
+                </mat-stepper>
             </form>
         </div>
     </div>
-    <!-- wizard container -->
 </div>

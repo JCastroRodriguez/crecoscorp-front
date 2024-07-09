@@ -9,13 +9,13 @@ export class CatalogoService {
 
   headers: HttpHeaders = new HttpHeaders;
 
-    constructor(
-        private httpCliente: HttpClient
-    ) { }
+  constructor(
+    private httpCliente: HttpClient
+  ) { }
 
-  listarSubcatalogosByIdCatalogo(idCatalogo : number) {
+  listarSubcatalogosByIdCatalogo(idCatalogo: number) {
     let url = `${URL_SERVICIO}/api/subcatalogo/catalogo/{idCatalogo}`;
-    url = url.replace("{idCatalogo}", idCatalogo +"");
+    url = url.replace("{idCatalogo}", idCatalogo + "");
     return this.httpCliente.get(url, { headers: this.headers });
-}
+  }
 }
