@@ -87,10 +87,9 @@
                                             </span>
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Provincia</label>
-                                                <select formControlName="provinciaSolicitante"
-                                                    class="form-control">
-                                                    <option *ngFor="let tipo of listaProvincias"
-                                                        [value]="tipo.id">{{ tipo.nombreSubcatalogo }}</option>
+                                                <select formControlName="provinciaSolicitante" class="form-control">
+                                                    <option *ngFor="let tipo of listaProvincias" [value]="tipo.id">{{
+                                                        tipo.nombreSubcatalogo }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -241,9 +240,8 @@
                                             <div class="form-group label-floating">
                                                 <label class="control-label">Provincia</label>
                                                 <select formControlName="provinciaGarante" class="form-control">
-                                                    <option value="1"> Santa Elena </option>
-                                                    <option value="2"> Guayas </option>
-                                                    <option value="3"> Manabi </option>
+                                                    <option *ngFor="let tipo of listaProvincias" [value]="tipo.id">{{
+                                                        tipo.nombreSubcatalogo }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -269,9 +267,8 @@
                                                 <label class="control-label">Tipo de Indentificación</label>
                                                 <select formControlName="tipoIdentificacionGarante"
                                                     class="form-control">
-                                                    <option value="1"> Cédula </option>
-                                                    <option value="2"> Ruc </option>
-                                                    <option value="3"> Pasaporte </option>
+                                                    <option *ngFor="let tipo of listaTipoIdentificacion"
+                                                        [value]="tipo.id">{{ tipo.nombreSubcatalogo }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -293,7 +290,7 @@
                             <div>
                                 <button mat-button matStepperPrevious>Regresar</button>
                                 <button mat-button [disabled]="this.garanteFormGroup.invalid"
-                                    (click)="validarGarante">Siguiente</button>
+                                    (click)="validarGarante()">Siguiente</button>
                             </div>
                         </form>
                     </mat-step>

@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { SolicitanteService } from 'src/app/services/solicitante/solicitante.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { CatalogoService } from 'src/app/services/catalogo/catalogo.service';
+import { GaranteService } from 'src/app/services/garante/garante.service';
 
 class Cuota {
   numeroCuota!: number;
@@ -57,6 +58,7 @@ export class RegistroSolicitanteComponent implements OnInit {
     private solicitanteService: SolicitanteService,
     private SpinnerService: NgxSpinnerService,
     private catalogoService: CatalogoService,
+    private garanteService: GaranteService
   ) {
 
     this.solicitanteFormGroup = this._formBuilder.group({
@@ -104,14 +106,12 @@ export class RegistroSolicitanteComponent implements OnInit {
     await this.catalogoService.listarSubcatalogosByIdCatalogo(3).toPromise().then(async (respuesta: any) => {
       if (respuesta.datos != null) {
         this.listaTipoIdentificacion = respuesta.datos;
-        console.log(this.listaTipoIdentificacion)
       } else {
         this.alertas.ToastExito('No se encontraron registros');
       }
     }).catch(async (error: Error) => {
       await this.SpinnerService.hide();
-    }
-    );
+    });
   }
 
   async provincias() {
@@ -124,12 +124,35 @@ export class RegistroSolicitanteComponent implements OnInit {
       }
     }).catch(async (error: Error) => {
       await this.SpinnerService.hide();
-    }
-    );
+    });
   }
 
-  grabar() {
-
+  async grabar() {
+    let jsonGrabar = {}
+    await this.SpinnerService.show();
+    if (!this.solicitanteFormGroup.valid) {
+      this.alertas.ToastError('Por favor ingresar los datos descritos como (requerido)* en SOLICITANTE');
+      await this.SpinnerService.hide();
+      return;
+    }
+    if (!this.garanteFormGroup.valid) {
+      this.alertas.ToastError('Por favor ingresar los datos descritos como (requerido)* en GARANTE');
+      await this.SpinnerService.hide();
+      return;
+    }
+    if (!this.creditoFormGroup.valid) {
+      this.alertas.ToastError('Por favor ingresar los datos descritos como (requerido)* en CREDITO');
+      await this.SpinnerService.hide();
+      return;
+    }
+    jsonGrabar = {
+      "solicitante": this.solicitanteFormGroup.value,
+      "garante": this.garanteFormGroup.value,
+      "credito": this.creditoFormGroup.value,
+      "cuotas": this.listaCuotas
+    }
+    console.log(jsonGrabar);
+    await this.SpinnerService.hide();
   }
 
   /**
@@ -198,12 +221,62 @@ export class RegistroSolicitanteComponent implements OnInit {
     }
   }
 
-  validarGarante() {
+  async validarGarante() {
+    await this.SpinnerService.show();
     if (this.garanteFormGroup.valid) {
       if (!this.validaCedulaGarante) {
         this.alertas.ToastError('la cédula o ruc del garante no es válido');
+        await this.SpinnerService.hide();
         return;
       }
+
+      if (this.garanteFormGroup.get('identificacionGarante')?.value ==
+        this.solicitanteFormGroup.get('identificacionSolicitante')?.value) {
+        this.alertas.ToastError('la identificación no debe ser igual al Solicitante');
+        await this.SpinnerService.hide();
+        return;
+      }
+
+      if (this.garanteFormGroup.get('celularGarante')?.value ==
+        this.solicitanteFormGroup.get('celularSolicitante')?.value) {
+        this.alertas.ToastError('el celular no debe ser igual al Solicitante');
+        await this.SpinnerService.hide();
+        return;
+      }
+
+      await this.garanteService.garanteByIdentificacion(this.garanteFormGroup.get('identificacionGarante')?.value)
+        .toPromise().then(async (respuesta: any) => {
+          if (respuesta.datos != null) {
+            this.alertas.ToastError('Ya existe un Garante con la identificación ingresada');
+            await this.SpinnerService.hide();
+            return;
+          }
+        }).catch(async (error: Error) => {
+          await this.SpinnerService.hide();
+        });
+
+      await this.solicitanteService.solicitanteByIdentificacion(this.solicitanteFormGroup.get('identificacionSolicitante')?.value)
+        .toPromise().then(async (respuesta: any) => {
+          if (respuesta.datos != null) {
+            this.alertas.ToastError('Ya existe un Solicitante con la identificación ingresada');
+            await this.SpinnerService.hide();
+            return;
+          }
+        }).catch(async (error: Error) => {
+          await this.SpinnerService.hide();
+        });
+
+      await this.garanteService.garanteByCelular(this.garanteFormGroup.get('celularGarante')?.value)
+        .toPromise().then(async (respuesta: any) => {
+          if (respuesta.datos != null) {
+            this.alertas.ToastError('Ya existe un Garante con el celular ingresado');
+            await this.SpinnerService.hide();
+            return;
+          }
+        }).catch(async (error: Error) => {
+          await this.SpinnerService.hide();
+        });
+      await this.SpinnerService.hide();
       this.stepper.next();
     } else {
       this.alertas.ToastError('Por favor ingresar los datos descritos como (requerido)*');
@@ -211,23 +284,28 @@ export class RegistroSolicitanteComponent implements OnInit {
     }
   }
 
-  validarCredito() {
+  async validarCredito() {
+    await this.SpinnerService.show();
     this.listaCuotas = [];
     if (this.creditoFormGroup.valid) {
       if (this.creditoFormGroup.get('montoCredito')?.value <= 0) {
         this.alertas.ToastError('el monto no puede ser cero');
+        await this.SpinnerService.hide();
         return;
       }
       if (this.creditoFormGroup.get('interesCredito')?.value <= 0) {
         this.alertas.ToastError('el interes % no puede ser cero');
+        await this.SpinnerService.hide();
         return;
       }
       if (this.creditoFormGroup.get('cuotasCredito')?.value <= 0) {
         this.alertas.ToastError('el # de cuota no puede ser cero');
+        await this.SpinnerService.hide();
         return;
       }
     } else {
       this.alertas.ToastError('Por favor ingresar los datos descritos como (requerido)*');
+      await this.SpinnerService.hide();
       return;
     }
 
@@ -267,6 +345,7 @@ export class RegistroSolicitanteComponent implements OnInit {
       this.listaCuotas.push(cuotaN);
     }
     console.log(this.listaCuotas);
+    await this.SpinnerService.hide();
     this.stepper.next();
   }
 
