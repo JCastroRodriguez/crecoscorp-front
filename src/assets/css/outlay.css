@@ -5782,9 +5782,9 @@ div.dataTables_wrapper div.dataTables_filter {
  */
 
 .outlay-login-page {
-    background-image: url('../img/cards/2.jpg');
+    background-image: url('../img/crecoscorp_fondo.jpg');
     -webkit-background-size: cover;
-    background-size: cover;
+    background-size:contain;
 }
 
 .outlay-login-page:after {
